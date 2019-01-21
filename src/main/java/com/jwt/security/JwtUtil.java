@@ -15,7 +15,7 @@ public class JwtUtil {
     static void addAuthentication(HttpServletResponse res, String username) {
         String token = Jwts.builder().setSubject(username)
             .setExpiration(new Date(System.currentTimeMillis() + 600_000))
-            .signWith(SignatureAlgorithm.HS512, "P@tit0")
+            .signWith(SignatureAlgorithm.HS512, "vectordelafirma")
             .compact();
 
         res.addHeader("Authorization", "Bearer " + token);
@@ -26,7 +26,7 @@ public class JwtUtil {
 
         if (token != null) {
             String user = Jwts.parser()
-                    .setSigningKey("P@tit0")
+                    .setSigningKey("vectordelafirma")
                     .parseClaimsJws(token.replace("Bearer", "")) //este metodo es el que valida
                     .getBody()
                     .getSubject();

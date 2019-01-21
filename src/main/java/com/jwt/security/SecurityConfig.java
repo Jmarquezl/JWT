@@ -13,15 +13,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-            .antMatchers("/login").permitAll()
+            .antMatchers("/auth/tokrn").permitAll()
             .anyRequest().authenticated().and()
-            .addFilterBefore(new LoginFilter("/login", authenticationManager()),
+            .addFilterBefore(new LoginFilter("/auth/tokrn", authenticationManager()),
                     UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.inMemoryAuthentication().withUser("ask").password("{noop}123").roles("ADMIN");
+    	auth.inMemoryAuthentication().withUser("JMAL").password("{noop}admin").roles("ADMIN");
     }
 }
