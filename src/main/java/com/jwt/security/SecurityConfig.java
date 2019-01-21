@@ -13,9 +13,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-            .antMatchers("/auth/tokrn").permitAll()
+            .antMatchers("/auth/token").permitAll()
             .anyRequest().authenticated().and()
-            .addFilterBefore(new LoginFilter("/auth/tokrn", authenticationManager()),
+            .addFilterBefore(new LoginFilter("/auth/token", authenticationManager()),
                     UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
